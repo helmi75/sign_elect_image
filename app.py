@@ -14,20 +14,33 @@ formatted_date = today.strftime("%d/%m/%Y")  # Format : jour/mois/année
 st.title("Signature et Enregistrement d'un Document de Droit d'Image")
 firstname  = st.text_input("firstname")
 lastname = st.text_input("lastname")
+min_date = date(1930, 1, 1) 
+birthday = st.date_input("birthday :", value=date.today(), min_value = min_date)
+adress = st.text_input("adress")
+email  = st.text_input("email")
 
 
 # Texte du document
 document_text = f"""
-DROIT À L'IMAGE
-Je soussigné(e), autorise l'utilisation de mon image par [Nom de l'Organisation]
-dans le cadre des activités de communication, de publicité ou autres supports numériques.
-prénom   : {firstname}
-nom : {lastname}
+Autorisation d’exploitation du droit à l’image
+
+Je soussigné(e), {firstname} {lastname}
+né(e) le : {birthday}
+demeurant au {adress}
+
+Autorise sans réserve la société TURTLE SAS à disposer pleinement et irrévocablement des photos ou vidéos prises de moi à l’occasion des photos prises :
+
+à bord d’un tricycle Turtle dans le cadre d’un témoignage.
+Les images seront destinées à être diffusées, représentées et/ou adaptées en tout ou en partie, s’il y a lieu, dans le cadre de la communication interne et externe de Turtle, notamment sur les réseaux sociaux, site internet, presse et voies électroniques.
+Cette autorisation gracieuse vaut sans restriction géographique et sans limite de durée.
+
+Fait pour servir et valoir ce que de droit.
 
 
-
-Date : {formatted_date}
+fait à Paris le : {formatted_date}
 Nom et Signature : {firstname}
+
+
 """
 
 st.subheader("Document à signer")
@@ -70,7 +83,7 @@ if st.button("Enregistrer le document en PDF"):
             pdf = FPDF()
             pdf.add_page()
             pdf.set_font("Arial", size=12)
-            pdf.multi_cell(0, 10, document_text)
+            pdf.multi_cell(0, 10, document_text.replace("’", "'"))
 
 
 
