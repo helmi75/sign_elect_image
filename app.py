@@ -72,11 +72,17 @@ if st.button("Enregistrer le document en PDF"):
             pdf.set_font("Arial", size=12)
             pdf.multi_cell(0, 10, document_text)
 
-            # Ajouter la signature au PDF
-            x_signature = 50  # Position X
-            y_signature = 100  # Position Y
+
+
+
+            # Positionnement ajusté pour éviter d'écraser le texte
+            x_signature = 50  # Position X (inchangé)
+            y_signature = pdf.get_y() + 20  # Ajouter de l'espace après le texte actuel
             width_signature = 60  # Largeur
+
+            # Ajouter la signature au PDF
             pdf.image(signature_path, x=x_signature, y=y_signature, w=width_signature)
+
 
             # Sauvegarde du PDF
             pdf_output = f"pdf/{firstname}_droit_image.pdf"
