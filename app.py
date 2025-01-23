@@ -18,10 +18,11 @@ min_date = date(1930, 1, 1)
 birthday = st.date_input("birthday :", value=date.today(), min_value = min_date)
 adress = st.text_input("adress")
 email  = st.text_input("email")
+language = st.selectbox("select language", ["french","english"])
 
 
 # Texte du document
-document_text = f"""
+fr_document_text = f"""
 Autorisation d’exploitation du droit à l’image
 
 Je soussigné(e), {firstname} {lastname}
@@ -39,12 +40,38 @@ Fait pour servir et valoir ce que de droit.
 
 fait à Paris le : {formatted_date}
 Nom et Signature : {firstname}
-
-
 """
 
+en_document_text = f"""
+Image Rights Authorization
+
+I, the undersigned, {firstname} {lastname}
+born on: {birthday}
+residing at {adress}
+
+Hereby authorize, without reservation, the company TURTLE SAS to fully and irrevocably dispose of any photos or videos taken of me on the occasion of photos taken:
+
+on board a Turtle tricycle as part of a testimonial.
+The images are intended to be disseminated, represented and/or adapted in whole or in part, as the case may be, as part of Turtle's internal and external communication, including on social networks, websites, press and electronic media.
+This gratuitous authorization is valid without geographical restriction and without time limit.
+
+Done for what it may be worth.
+
+
+Done in Paris on: {formatted_date}
+Name and Signature: {firstname}
+"""
+
+
 st.subheader("Document à signer")
-st.text_area("Prévisualisation du document :", document_text, height=200, disabled=True)
+if language == "french":
+    st.text_area("Prévisualisation du document :", fr_document_text, height=200, disabled=True)
+    document_text = fr_document_text
+elif language == "english":
+    st.text_area("Prévisualisation du document :", en_document_text, height=200, disabled=True)
+    document_text = en_document_text
+
+
 
 # Zone de signature
 st.subheader("Zone de signature")
@@ -84,8 +111,6 @@ if st.button("Enregistrer le document en PDF"):
             pdf.add_page()
             pdf.set_font("Arial", size=12)
             pdf.multi_cell(0, 10, document_text.replace("’", "'"))
-
-
 
 
             # Positionnement ajusté pour éviter d'écraser le texte
