@@ -7,7 +7,7 @@ from datetime import date
 from utility.language_template import template_text_doc
 
 # Titre de l'application
-st.title("Signature et Enregistrement d'un Document de Droit d'Image")
+st.title("Signing and Registering an Image Rights Document")
 firstname  = st.text_input("firstname")
 lastname = st.text_input("lastname")
 min_date = date(1930, 1, 1) 
@@ -18,14 +18,14 @@ language = st.selectbox("select language", ["french","english"])
 
 
 
-st.subheader("Document à signer")
-document_text = template_text_doc(language, firstname, lastname, birthday, adress)
+st.subheader("Document to sign")
+document_text = template_text_doc(language, firstname, lastname, birthday, adress, email )
 st.text_area("Prévisualisation du document :", document_text, height=200, disabled=True)
 
 
 
 # Zone de signature
-st.subheader("Zone de signature")
+st.subheader("Signature zone")
 stroke_width = st.sidebar.slider("Épaisseur du trait", 1, 25, 3)
 stroke_color = st.sidebar.color_picker("Couleur du trait", "#000000")
 bg_color = st.sidebar.color_picker("Couleur de fond", "#FFFFFF")
@@ -42,7 +42,7 @@ canvas_result = st_canvas(
 )
 
 # Enregistrement en PDF
-if st.button("Enregistrer le document en PDF"):
+if st.button("Save document as PDF"):
     if canvas_result.image_data is not None:
         # Conversion de la signature en image
         signature_image = Image.fromarray((canvas_result.image_data * 255).astype("uint8"))
@@ -54,7 +54,7 @@ if st.button("Enregistrer le document en PDF"):
 
         # Vérification du fichier de signature
         if os.path.exists(signature_path):
-            st.success("La signature a été sauvegardée.")
+            st.success("The signature has been saved.")
             st.image(signature_image, caption="Aperçu de la signature")
 
             # Création du PDF
@@ -90,7 +90,7 @@ if st.button("Enregistrer le document en PDF"):
 
 
             # Sauvegarde du PDF
-            pdf_output = f"pdf/{firstname}_{lastname}_droit_image.pdf"
+            pdf_output = f"pdf/{firstname}_{lastname}_droit_image.pdf"  
             pdf.output(pdf_output)
             st.success(f"Document enregistré en PDF : {pdf_output}")
             with open(pdf_output, "rb") as pdf_file:

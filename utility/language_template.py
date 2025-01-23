@@ -3,7 +3,7 @@ from datetime import date
 today = date.today()
 formatted_date = today.strftime("%d/%m/%Y")  # Format : jour/mois/année
 
-def template_text_doc(language, firstname, lastname, birthday, adress):
+def template_text_doc(language, firstname, lastname, birthday, adress, email):
     # Texte du document
 
     if language == "french":
@@ -12,6 +12,7 @@ def template_text_doc(language, firstname, lastname, birthday, adress):
         Je soussigné(e), {firstname} {lastname}
         né(e) le : {birthday}
         demeurant au {adress}
+        email :{email}
 
         Autorise sans réserve la société TURTLE SAS à disposer pleinement et irrévocablement des photos ou vidéos prises de moi à l’occasion des photos prises :
 
@@ -36,6 +37,8 @@ def template_text_doc(language, firstname, lastname, birthday, adress):
         I, the undersigned, {firstname} {lastname}
         born on: {birthday}
         residing at {adress}
+        email :{email}
+
 
         Hereby authorize, without reservation, the company TURTLE SAS to fully and irrevocably dispose of any photos or videos taken of me on the occasion of photos taken:
 
