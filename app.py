@@ -12,14 +12,13 @@ firstname  = st.text_input("firstname")
 lastname = st.text_input("lastname")
 min_date = date(1930, 1, 1) 
 birthday = st.date_input("birthday :", value=date.today(), min_value = min_date)
-adress = st.text_input("adress")
 email  = st.text_input("email")
 language = st.selectbox("select language", ["french","english"])
 
 
 
 st.subheader("Document to sign")
-document_text = template_text_doc(language, firstname, lastname, birthday, adress, email )
+document_text = template_text_doc(language, firstname, lastname, birthday, email )
 st.text_area("Prévisualisation du document :", document_text, height=200, disabled=True)
 
 
@@ -37,6 +36,7 @@ canvas_result = st_canvas(
     background_color=bg_color,
     height=200,
     width=400,
+   
     drawing_mode="freedraw",
     key="canvas",
 )
@@ -51,6 +51,9 @@ if st.button("Save document as PDF"):
         signature_image = signature_image.convert("RGB")  # Convertir en RGB
         signature_path = f"pdf/{firstname}_{lastname}_signature.png"
         signature_image.save(signature_path)
+
+
+
 
         # Vérification du fichier de signature
         if os.path.exists(signature_path):

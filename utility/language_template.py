@@ -3,7 +3,7 @@ from datetime import date
 today = date.today()
 formatted_date = today.strftime("%d/%m/%Y")  # Format : jour/mois/année
 
-def template_text_doc(language, firstname, lastname, birthday, adress, email):
+def template_text_doc(language, firstname, lastname, birthday, email):
     # Texte du document
 
     if language == "french":
@@ -11,7 +11,6 @@ def template_text_doc(language, firstname, lastname, birthday, adress, email):
         
         Je soussigné(e), {firstname} {lastname}
         né(e) le : {birthday}
-        demeurant au {adress}
         email :{email}
 
         Autorise sans réserve la société TURTLE SAS à disposer pleinement et irrévocablement des photos ou vidéos prises de moi à l’occasion des photos prises :
@@ -24,7 +23,7 @@ def template_text_doc(language, firstname, lastname, birthday, adress, email):
 
 
         fait à Paris le : {formatted_date}
-        Nom et Signature précédée de la mention Lu et approuvé: {firstname} {lastname} 
+        Nom et Signature : {firstname} {lastname} 
 
         """
         
@@ -36,7 +35,7 @@ def template_text_doc(language, firstname, lastname, birthday, adress, email):
 
         I, the undersigned, {firstname} {lastname}
         born on: {birthday}
-        residing at {adress}
+        
         email :{email}
 
 
@@ -50,7 +49,7 @@ def template_text_doc(language, firstname, lastname, birthday, adress, email):
 
 
         Done in Paris on: {formatted_date}
-        Name and Signature preceded by the words Read and approved:: {firstname}   {lastname}
+        Name and Signature : {firstname}   {lastname}
         """
        
         return document_text
